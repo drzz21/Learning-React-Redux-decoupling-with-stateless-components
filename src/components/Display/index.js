@@ -1,33 +1,33 @@
 import React, { Component } from 'react';
 import ee from '../../eventEmitter'
 
-class Display extends Component {
-  constructor(props) {
-      super(props);
+let state = '0';
 
-      this.state = { text: this.props.text || '0' };
-      this.updateDisplay = this.updateDisplay.bind(this);
-      this.onClickHandler = this.onClickHandler.bind(this);
-  }
 
-  updateDisplay(newStr) {
-    console.log( this.state );
-      return this.setState({ text: newStr.toString().split(' ').reverse().join(' ') });
-  }
 
-  componentWillMount() {
-      ee.addListener('displayUpdate', this.updateDisplay);
-  }
+const updateDisplay = (newStr) => {
+  // console.log(this.state);
+  state = ({ text: newStr.toString().split(' ').reverse().join(' ') });
+}
 
-  onClickHandler() {
-      if (this.props.clickHandler) {
-          this.props.clickHandler.call(this);
-      }
-  }
+// componentWillMount() {
 
-  render() {
-      return <div className="display" onClick={this.onClickHandler}>{this.state.text}</div>
-  }
+// }
+
+// onClickHandler() {
+//   if (this.props.clickHandler) {
+//     this.props.clickHandler.call(this);
+//   }
+// }
+
+
+
+
+export const Display = ({ text, clickHandler }) => {
+  ee.addListener('displayUpdate', updateDisplay);
+  state = { text: text || '0' };
+
+  return <div className="display" onClick={clickHandler ? clickHandler : null}>{state.text}</div>
 }
 
 
