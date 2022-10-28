@@ -3,7 +3,7 @@ import store from '../../store'
 import Button from '../Button'
 
 
-export const digitClickHandler = (num) => {
+const digitClickHandler = (num) => {
   if (!store.curExpression) {
     return store.newExpression = num;
   }
